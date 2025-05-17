@@ -1,3 +1,5 @@
+import dotenv from "dotenv";
+dotenv.config();
 interface EnvVariables {
     PORT: number
     MONGODB_URI: string
