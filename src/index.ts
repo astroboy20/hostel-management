@@ -20,7 +20,7 @@ if (!config.MONGODB_URI) {
 mongoose.connect(config.MONGODB_URI)
     .then(() => console.log("Connected to database"))
     .catch((error) => {
-        console.log("Failed to connect to db", error, config.MONGODB_URI);
+        console.log("Failed to connect to db", error);
         process.exit(1);
     });
 
