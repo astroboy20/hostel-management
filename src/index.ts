@@ -27,6 +27,7 @@ mongoose.connect(config.MONGODB_URI)
 //routes
 app.use("/api", router)
 
+
 app.listen(config.PORT, () => {
     console.log(`Server running on port ${config.PORT}`)
 })
