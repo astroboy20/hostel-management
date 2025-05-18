@@ -55,14 +55,12 @@ export const registerHandler: RequestHandler = async (req, res) => {
 export const loginHandler: RequestHandler = async (req, res) => {
     try {
         const { matricNumber, password } = req.body
-
         //find user
         const user = await User.findOne({ matricNumber })
         if (!user) {
             res.status(401).json({ error: 'Invalid credentials' })
             return
         }
-
         //check password
         const isMatch = await bcrypt.compare(password, user.password)
         if (!isMatch) {
