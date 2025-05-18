@@ -1,7 +1,7 @@
 
-import express, { Request, Response, Router, NextFunction, RequestHandler } from 'express';
-import { User } from '../models/models';
-import { loginHandler, registerHandler } from './auth';
+import express, { Router } from 'express';
+import { adminLoginHandler, loginHandler, logoutHandler, refreshTokenHandler, registerHandler, validateRefreshTokenHandler } from './auth';
+import { auth } from '../middleware/auth';
 
 export const router: Router = express.Router();
 
@@ -9,3 +9,8 @@ export const router: Router = express.Router();
 //user registration  
 router.post("/register", registerHandler)
 router.post("/login", loginHandler)
+router.post("/refreshToken", refreshTokenHandler)
+router.post('/validate-refresh', validateRefreshTokenHandler)
+router.post('/logout', auth, logoutHandler)
+router.post('/admin/login', adminLoginHandler)
+
