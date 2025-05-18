@@ -77,7 +77,8 @@ export const loginHandler: RequestHandler = async (req, res) => {
         res.json({
             accessToken,
             refreshToken,
-            isAdmin: user.isAdmin
+            isAdmin: user.isAdmin,
+            message: "Login successful. Welcome back!"
         });
 
     } catch (error) {
