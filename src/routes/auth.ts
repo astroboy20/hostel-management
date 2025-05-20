@@ -90,7 +90,7 @@ export const loginHandler: RequestHandler = async (req, res) => {
 export const refreshTokenHandler: RequestHandler = async (req, res) => {
     const { refreshToken } = req.body
 
-    if (!refreshToken) {
+    if (!refreshToken || refreshToken === "") {
         res.status(401).json({ error: "Refresh Token required" })
         return
     }
