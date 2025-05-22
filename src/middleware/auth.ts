@@ -37,14 +37,12 @@ export const auth = async (req: Request, res: Response, next: NextFunction) => {
             res.status(401).json({ error: 'User not found' });
             return 
         }
-
         // Attach user to request
         req.user = {
             _id: decoded._id,
             matricNumber: decoded.matricNumber,
             isAdmin: user.isAdmin
         };
-
         next();
     } catch (error) {
         let errorMessage = 'Invalid token';

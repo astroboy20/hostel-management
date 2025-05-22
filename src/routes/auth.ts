@@ -135,7 +135,6 @@ export const validateRefreshTokenHandler: RequestHandler = async (req, res) => {
 
 //logout
 export const logoutHandler:RequestHandler = async(req,res)=>{
-
     try {
         await User.findByIdAndUpdate(req?.user?._id, {
           $unset: { refreshToken: 1 }

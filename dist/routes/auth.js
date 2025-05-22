@@ -112,6 +112,7 @@ const validateRefreshTokenHandler = async (req, res) => {
     }
 };
 exports.validateRefreshTokenHandler = validateRefreshTokenHandler;
+
 //logout
 const logoutHandler = async (req, res) => {
     try {
