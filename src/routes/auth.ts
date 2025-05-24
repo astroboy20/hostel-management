@@ -164,6 +164,7 @@ export const userDataHandler:RequestHandler = async(req, res)=>{
             lastName:user.lastName,
             department: user.department,
             currentHostel: user.currentHostel,
+            level:user.level,
             isAdmin: user.isAdmin
 
         })
