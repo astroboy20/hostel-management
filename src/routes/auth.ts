@@ -102,27 +102,26 @@ export const refreshTokenHandler: RequestHandler = async (req, res) => {
             res.status(403).json({ error: 'Invalid refresh token' });
             return
         }
-
-        const newAccessToken = generateAccessToken(user)
-        const newRefreshToken = generateRefreshToken(user)
-
-        user.refreshToken = newRefreshToken
-        try {
-            await user.save();
-          } catch (saveError) {
-            console.error('Save error:', saveError);
-            res.status(500).json({ error: 'Failed to update tokens' });
-            return 
-          }
+        const accessToken = generateAccessToken(user)
 
         res.json({
-            accessToken: newAccessToken,
-            refreshToken: newRefreshToken
+            accessToken,
+            refreshToken
         });
 
     } catch (error) {
-        console.error('Refresh token error:', error);
-        res.status(403).json({ error: 'Invalid refresh token' });
+        console.error('Refresh token error:', error)
+   
+        if (error instanceof jwt.TokenExpiredError) {
+            res.status(403).json({ error: 'Refresh token expired' })
+            return 
+        }
+        if (error instanceof jwt.JsonWebTokenError) {
+            res.status(403).json({ error: 'Invalid token' })
+            return
+        }
+        
+        res.status(500).json({ error: 'Internal server error' })
     }
 }
 
