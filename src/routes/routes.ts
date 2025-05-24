@@ -12,6 +12,6 @@ router.post("/login", loginHandler)
 router.post("/validate-refreshToken", refreshTokenHandler)
 // router.post('/validate-refreshToken', validateRefreshTokenHandler)
 router.post('/logout', auth, logoutHandler)
-router.post('/user-details', auth, userDataHandler)
+router.get('/user-details', auth, userDataHandler)
 router.post('/admin/login', adminLoginHandler)
 
