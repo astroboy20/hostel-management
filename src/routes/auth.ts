@@ -107,7 +107,13 @@ export const refreshTokenHandler: RequestHandler = async (req, res) => {
         const newRefreshToken = generateRefreshToken(user)
 
         user.refreshToken = newRefreshToken
-        await user.save()
+        try {
+            await user.save();
+          } catch (saveError) {
+            console.error('Save error:', saveError);
+            res.status(500).json({ error: 'Failed to update tokens' });
+            return 
+          }
 
         res.json({
             accessToken: newAccessToken,
