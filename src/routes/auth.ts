@@ -146,6 +146,33 @@ export const logoutHandler:RequestHandler = async(req,res)=>{
       }
 }
 
+//getuserdata
+
+export const userDataHandler:RequestHandler = async(req, res)=>{
+    try {
+        const user  = await User.findById(req.user?._id).select('-password -refreshToken').populate('currentHostel')
+
+        if(!user){
+            res.status(404).json({error:"User not found!"})
+            return
+        }
+        
+        res.json({
+            id:user._id,
+            matricNumber:user.matricNumber,
+            firstName:user.firstName,
+            lastName:user.lastName,
+            department: user.department,
+            currentHostel: user.currentHostel,
+            isAdmin: user.isAdmin
+
+        })
+    } catch (error) {
+        console.log('User data error:', error)
+        res.status(500).json({error:"Something went wrong while fetching user data!"})
+    }
+}
+
 
 export const adminLoginHandler: RequestHandler = async (req, res) => {
     try {

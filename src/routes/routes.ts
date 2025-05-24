@@ -1,6 +1,6 @@
 
 import express, { Router } from 'express';
-import { adminLoginHandler, loginHandler, logoutHandler, refreshTokenHandler, registerHandler, validateRefreshTokenHandler } from './auth';
+import { adminLoginHandler, loginHandler, logoutHandler, refreshTokenHandler, registerHandler, userDataHandler, validateRefreshTokenHandler } from './auth';
 import { auth } from '../middleware/auth';
 
 export const router: Router = express.Router();
@@ -12,5 +12,6 @@ router.post("/login", loginHandler)
 router.post("/validate-refreshToken", refreshTokenHandler)
 // router.post('/validate-refreshToken', validateRefreshTokenHandler)
 router.post('/logout', auth, logoutHandler)
+router.post('/user-details', auth, userDataHandler)
 router.post('/admin/login', adminLoginHandler)
 
