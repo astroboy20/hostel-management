@@ -5,13 +5,13 @@ import { config } from "../config"
 interface InitializePaymentParams {
     email: string
     amount: number
-    referance: string
+    reference: string
 }
 
 interface InitializePaymentResponse {
     data: {
         authorization_url: string
-        refrence: string
+        reference: string
     }
 }
 
@@ -27,7 +27,7 @@ export const initiatePayment = async (params: InitializePaymentParams): Promise<
     const request = await axios.post("https://api.paystack.co/transaction/initialize", {
         email: params.email,
         amount: params.amount * 100,
-        reference: params.referance
+        reference: params.reference
     }, {
         headers: {
             Authorization: `Bearer ${config.PAYSTACK_SECRET_KEY}`,
