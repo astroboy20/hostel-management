@@ -17,9 +17,15 @@ export interface IUser extends Document {
 
 export interface IHostel extends Document {
     name: string;
-    description: string;
+    type: 'Standard' | 'Premium' | 'Deluxe';
     price: number;
-    availableRooms: number;
+    capacity: string;
+    available: number;
+    total: number;
+    description: string;
+    features: string[];
+    image:string
+
 }
 
 export interface IPayment extends Document {
@@ -44,11 +50,16 @@ const userSchema = new Schema<IUser>({
 }, { timestamps: true })
 
 const hostelSchema = new Schema<IHostel>({
-    name: String,
-    description: String,
-    price: Number,
-    availableRooms: Number
-})
+    name: { type: String, required: true },
+    type: { type: String, enum: ['Standard', 'Premium', 'Deluxe'], required: true },
+    price: { type: Number, required: true },
+    capacity: { type: String, required: true },
+    available: { type: Number, required: true },
+    total: { type: Number, required: true },
+    description: { type: String, required: true },
+    features: { type: [String], required: true },
+    image: { type: String, required: true }
+});
 
 const paymentSchema = new Schema<IPayment>({
     user: { type: Schema.Types.ObjectId, ref: 'User' },

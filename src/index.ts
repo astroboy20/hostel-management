@@ -4,6 +4,8 @@ import cors from "cors"
 import bodyParser from "body-parser"
 import { config } from "./config"
 import { router } from "./routes/routes"
+import seedRouter from "./routes/seed"
+import { seedHotels } from "./services/hotels"
 
 
 
@@ -36,7 +38,12 @@ if (!config.MONGODB_URI) {
     process.exit(1);
 }
 mongoose.connect(config.MONGODB_URI)
-    .then(() => console.log("Connected to database"))
+    .then(async () => {
+        console.log("Connected to database")
+        if (process.env.SEED_DB === "true") {
+            await seedHotels()
+        }
+    })
     .catch((error) => {
         console.log("Failed to connect to db", error);
         process.exit(1);
@@ -44,6 +51,7 @@ mongoose.connect(config.MONGODB_URI)
 
 //routes
 app.use("/api", router)
+app.use("/api/seed", seedRouter)
 
 
 app.listen(config.PORT, () => {

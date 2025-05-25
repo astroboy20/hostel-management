@@ -5,7 +5,19 @@ import jwt from 'jsonwebtoken';
 import { generateAccessToken, generateRefreshToken } from "../utils/jwt";
 import { config } from "../config";
 
-
+// Extend Express Request type
+declare global {
+    namespace Express {
+      interface Request {
+        user?: {
+          _id: string;
+          matricNumber: string;
+          isAdmin: boolean;
+          email?:string | any
+        };
+      }
+    }
+  }
 
 export const registerHandler: RequestHandler = async (req, res) => {
     try {
